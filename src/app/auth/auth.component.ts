@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Http} from '@angular/http';
+import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+import {AuthService} from './auth.service';
 
 const emailRegexp = "[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$";
 
@@ -14,7 +15,7 @@ export class AuthComponent {
 	registerForm: FormGroup;
 	isLoginForm: boolean = true;
 
-	constructor(private formBuilder: FormBuilder, private http: Http) {
+	constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
 		this.initLoginForm();
 		this.initRegisterForm();
 	}
@@ -25,9 +26,12 @@ export class AuthComponent {
 	}
 
 	onSubmit() {
-		this.http.post(`http://127.0.0.1:3000/auth/${this.isLoginForm ? 'login' : 'register'}`, this.getActiveForm().getRawValue()).subscribe((data) => {
-			console.log(data);
-		});
+    (this.isLoginForm ? this.authService.login : this.authService.register)
+      .call(this.authService, this.getActiveForm().getRawValue())
+      .subscribe(response => {
+        this.authService.saveToken(response.text());
+        this.router.navigate(['/chat']);
+      });
 	}
 
 	private initLoginForm() {

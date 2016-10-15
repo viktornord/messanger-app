@@ -2,10 +2,12 @@ import {ModuleWithProviders} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {AuthComponent} from "./auth/auth.component";
+import {MainChannelComponent} from './main-channel/main-channel.component';
 
 const appRoutes: Routes = [
   {path: '', component: DashboardComponent},
-  {path: 'auth', component: AuthComponent}
+  {path: 'auth', component: AuthComponent},
+  {path: 'chat', component: MainChannelComponent}
 ];
 
 export const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);
