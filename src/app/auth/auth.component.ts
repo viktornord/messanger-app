@@ -25,7 +25,7 @@ export class AuthComponent {
 	}
 
 	onSubmit() {
-		this.http.post(`http://127.0.0.1:3000/api/auth/sign-${this.isLoginForm ? 'in' : 'up'}`, this.getActiveForm().getRawValue()).subscribe((data) => {
+		this.http.post(`http://127.0.0.1:3000/auth/${this.isLoginForm ? 'login' : 'register'}`, this.getActiveForm().getRawValue()).subscribe((data) => {
 			console.log(data);
 		});
 	}
@@ -39,6 +39,7 @@ export class AuthComponent {
 
 	private initRegisterForm() {
 		this.registerForm = this.formBuilder.group({
+      nickname: new FormControl('', [Validators.required]),
 			email: new FormControl('', [Validators.required, Validators.pattern(emailRegexp)]),
 			password: new FormControl('', Validators.required),
 			confirmPassword: new FormControl('', Validators.required)

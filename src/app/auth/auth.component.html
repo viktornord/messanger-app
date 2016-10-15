@@ -1,4 +1,10 @@
 <form [formGroup]="getActiveForm()" (ngSubmit)="onSubmit()">
+  <div *ngIf="!isLoginForm">
+    <label>
+      Nickname
+      <input type="text" formControlName="nickname"/>
+    </label>
+  </div>
 	<div>
 		<label>
 			Email
