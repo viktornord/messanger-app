@@ -1,0 +1,23 @@
+h1 {
+  text-align: center;
+}
+.navigation {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+.navigation li {
+  width: 100%;
+}
+.navigation li:not(:first-child) {
+  border-left: 1px solid;
+}
+.navigation a {
+  display: block;
+  background: #cccccc;
+  padding: 10px 0;
+  text-align: center;
+  text-decoration: none;
+}

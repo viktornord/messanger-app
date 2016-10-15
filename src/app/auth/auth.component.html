@@ -1,0 +1,30 @@
+<form [formGroup]="getActiveForm()" (ngSubmit)="onSubmit()">
+	<div>
+		<label>
+			Email
+			<input type="email" formControlName="email"/>
+		</label>
+	</div>
+	<div>
+		<label>
+			Password
+			<input type="password" formControlName="password"/>
+		</label>
+	</div>
+	<div *ngIf="!isLoginForm">
+		<label>
+			Confirm password
+			<input type="password" formControlName="confirmPassword"/>
+		</label>
+	</div>
+	<div>
+    <div *ngIf="isLoginForm" class="actions">
+      <button type="submit" [disabled]="getActiveForm().invalid">Login</button>
+      <button (click)="isLoginForm = false">I don't have an account yet</button>
+    </div>
+    <div *ngIf="!isLoginForm" class="actions">
+      <button type="submit" [disabled]="getActiveForm().invalid">Register</button>
+      <button (click)="isLoginForm = true">I already have an account</button>
+    </div>
+	</div>
+</form>
