@@ -1,0 +1,77 @@
+:host {
+  display: block;
+  height: calc(100% - 120px);
+}
+.wrapper {
+  height: 85%;
+  display: flex;
+}
+aside {
+  width: 30%;
+  border-right: 1px solid;
+}
+aside h2 {
+  margin: 0;
+  height: 30px;
+}
+.users-container {
+  height: calc(100% - 30px);
+  border-top: 1px solid;
+  overflow: auto;
+}
+.users-container ul {
+  margin: 0;
+  padding: 0;
+}
+.users-container li {
+  padding: 5px;
+  background: #68ec68;
+}
+.users-container li.offline {
+  background: #ec6e5b;
+}
+main {
+  height: 100%;
+  width: 70%;
+  overflow: auto;
+}
+form {
+  height: 15%;
+  display: flex;
+  align-items: flex-start;
+  border-top: 1px solid;
+}
+textarea {
+  height: 100%;
+  width: 90%;
+  border-top: 0;
+}
+button[type=submit] {
+  width: 50px;
+  display: block;
+  height: 50px;
+  margin: auto;
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+}
+.message-wrapper.own-message {
+  margin: 5px 0 5px 50px;
+  background: #a2ccc9;
+  padding: 5px;
+  border-radius: 5px 0 0 5px;
+}
+.message-header span {
+  font-style: italic;
+  margin-right: 5px;
+}
+.message-header .time {
+  font-size: 12px;
+}
+.message-wrapper {
+  margin: 5px 50px 5px 0;
+  background: #ccc;
+  padding: 5px;
+  border-radius: 0 5px 5px 0;
+}
+

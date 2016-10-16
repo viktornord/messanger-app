@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
@@ -10,6 +10,9 @@ import {AuthService} from  './auth/auth.service';
 import {appRouting} from './app.routing';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {MainChannelComponent} from './main-channel/main-channel.component';
+import {AppHttp} from './app-http';
+import {ChatService} from './chat.service';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +28,11 @@ import {MainChannelComponent} from './main-channel/main-channel.component';
     HttpModule,
     appRouting
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    ChatService,
+    { provide: Http, useClass: AppHttp, deps: [XHRBackend, RequestOptions] }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -21,3 +21,12 @@ h1 {
   text-align: center;
   text-decoration: none;
 }
+:host {
+  display: block;
+  overflow: hidden;
+  height: 100vh;
+}
+.header {
+  overflow: hidden;
+  height: 120px;
+}
