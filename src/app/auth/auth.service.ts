@@ -1,25 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import {ChatService} from '../chat.service';
 
 @Injectable()
 export class AuthService {
   token: string;
-  username: string;
+  userData: {userId: number, username: string};
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private chatService: ChatService) {
     const savedToken = localStorage.getItem('messengerToken');
-    const username = localStorage.getItem('messengerUsername');
+    const userData = JSON.parse(localStorage.getItem('messengerUser'));
     savedToken && (this.token = savedToken);
-    username && (this.username = username);
+    userData && (this.userData = userData) && this.chatService.connect(userData);
   }
 
-  setUserName(username) {
-    this.username = username;
-    localStorage.setItem('messengerUsername', username);
+  saveUserData(userData) {
+    this.userData = userData;
+    localStorage.setItem('messengerUser', JSON.stringify(userData));
+    this.chatService.userData = userData;
+    this.chatService.connect(userData);
   }
 
-  getUserName() {
-    return this.username;
+  getUserData() {
+    return this.userData;
   }
 
   saveToken(token) {
@@ -33,9 +36,10 @@ export class AuthService {
 
   logout() {
     this.token = null;
-    this.username = null;
+    this.userData = null;
     localStorage.removeItem('messengerToken');
-    localStorage.removeItem('messengerUsername');
+    localStorage.removeItem('messengerUser');
+    this.chatService.disconnect();
   }
 
   login(userData) {

@@ -6,35 +6,9 @@
   height: 85%;
   display: flex;
 }
-aside {
-  width: 30%;
-  border-right: 1px solid;
-}
-aside h2 {
-  margin: 0;
-  height: 30px;
-}
-.users-container {
-  height: calc(100% - 30px);
-  border-top: 1px solid;
-  overflow: auto;
-}
-.users-container ul {
-  margin: 0;
-  padding: 0;
-}
-.users-container li {
-  padding: 5px;
-  background: #68ec68;
-  cursor: pointer;
-  border: 1px solid #fff;
-}
-.users-container li.offline {
-  background: #ec6e5b;
-}
 main {
   height: 100%;
-  width: 70%;
+  width: 100%;
   overflow: auto;
 }
 form {

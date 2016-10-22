@@ -30,9 +30,9 @@ export class AuthComponent {
     (this.isLoginForm ? this.authService.login : this.authService.register)
       .call(this.authService, this.getActiveForm().getRawValue())
       .subscribe(response => {
-        const {token, username} = response.json();
+        const {token, username, userId} = response.json();
         this.authService.saveToken(token);
-        this.authService.setUserName(username);
+        this.authService.saveUserData({username, userId});
         this.router.navigate(['/chat']);
       });
   }

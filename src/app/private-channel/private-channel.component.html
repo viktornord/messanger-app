@@ -1,12 +1,4 @@
 <div class="wrapper">
-  <aside>
-    <h2>Users</h2>
-    <div class="users-container">
-      <ul>
-        <li *ngFor="let user of users" [ngClass]="{offline: !user.online}" (click)="goPrivate(user)">{{user.name}}</li>
-      </ul>
-    </div>
-  </aside>
   <main>
     <div *ngFor="let message of messages" class="message-wrapper" [ngClass]="{'own-message': message.author === nickname}">
       <div class="message-header">

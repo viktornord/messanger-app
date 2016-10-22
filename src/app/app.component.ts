@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {AuthService} from './auth/auth.service';
 
 @Component({
@@ -8,7 +9,13 @@ import {AuthService} from './auth/auth.service';
 })
 export class AppComponent {
   title = 'Messenger!';
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {
+  }
+
+  showChatMenuItem(): boolean {
+    return !this.router.isActive('chat', true);
+  }
+
   logout() {
     this.authService.logout();
   }

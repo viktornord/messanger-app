@@ -9,25 +9,21 @@ import {AuthService} from '../auth/auth.service';
   templateUrl: './main-channel.component.html',
   styleUrls: ['./main-channel.component.css']
 })
-export class MainChannelComponent implements OnDestroy {
+export class MainChannelComponent {
   public messages: any[] = [];
-  public users: {name: string, online: boolean}[] = [];
+  public users: {name: string, userId: string, online: boolean}[] = [];
   public nickname: string;
 
-  constructor(private chatService: ChatService, authService: AuthService) {
-    this.nickname = authService.getUserName();
+  constructor(private chatService: ChatService, private authService: AuthService) {
+    this.nickname = authService.getUserData().username;
     chatService
-      .connect(connectedUsers => this.users = connectedUsers.map(username => ({name: username, online: true})))
+      .onConnectClients(connectedUsers => this.users = connectedUsers.map(user => ({name: user.username, userId: user.userId, online: true})))
       .onReceiveMessage(message => this.messages.push(message))
-      .onUserConnected(username => {
-        const user = _.find(this.users, {name: username});
-        user ? user.online = true : this.users.push({name: username, online: true});
+      .onUserConnected(({username, userId}) => {
+        const user = _.find(this.users, {userId: userId});
+        user ? user.online = true : this.users.push({name: username, userId: userId, online: true});
       })
-      .onUserDisconnected(username => _.find(this.users, {name: username}).online = false);
-  }
-
-  ngOnDestroy() {
-    this.chatService.disconnect();
+      .onUserDisconnected(userId => _.find(this.users, {userId: userId}).online = false);
   }
 
   sendMessage(messageText: string) {
@@ -36,6 +32,10 @@ export class MainChannelComponent implements OnDestroy {
       const message = {body: messageText, day: sentAt.format('DD.MM.YY'), time: sentAt.format('HH:mm:ss')};
       this.chatService.sendMessage(message);
     }
+  }
+
+  goPrivate({userId}) {
+    this.chatService.setUpRoom(userId);
   }
 
 }

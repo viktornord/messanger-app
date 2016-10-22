@@ -12,6 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import {MainChannelComponent} from './main-channel/main-channel.component';
 import {AppHttp} from './app-http';
 import {ChatService} from './chat.service';
+import {PrivateChannelComponent} from './private-channel/private-channel.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {ChatService} from './chat.service';
     AppComponent,
     AuthComponent,
     DashboardComponent,
-    MainChannelComponent
+    MainChannelComponent,
+    PrivateChannelComponent
   ],
   imports: [
     BrowserModule,

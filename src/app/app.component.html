@@ -3,6 +3,7 @@
   <ul class="navigation">
     <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
     <li *ngIf="!isLoggedIn()"><a routerLink="/auth" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a></li>
+    <li *ngIf="isLoggedIn() && showChatMenuItem()"><a routerLink="/chat" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Chat</a></li>
     <li *ngIf="isLoggedIn()"><a routerLink="/auth"  (click)="logout()">Logout</a></li>
   </ul>
 </div>
