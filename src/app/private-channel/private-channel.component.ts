@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -10,21 +10,33 @@ import {AuthService} from '../auth/auth.service';
   templateUrl: './private-channel.component.html',
   styleUrls: ['./private-channel.component.css']
 })
-export class PrivateChannelComponent {
+export class PrivateChannelComponent implements OnDestroy {
   public messages: any[] = [];
   public nickname: string;
-  private partnerId: string;
+  public partnerId;
+  public partnerName;
+  private roomId: string;
 
   constructor(private chatService: ChatService, private authService: AuthService, activatedRoute: ActivatedRoute) {
     this.nickname = authService.getUserData().username;
-    activatedRoute.params.subscribe(({partnerId}) => this.partnerId = partnerId);
-    this.chatService.onReceivePrivateMessage(this.partnerId, this.authService.getUserData().userId, message => this.messages.push(message));
+    activatedRoute.params.subscribe(({roomId, partnerId}) => {
+      this.roomId && this.chatService.leaveRoom(this.roomId, this.partnerId);
+      this.roomId = roomId;
+      this.partnerId = partnerId;
+      this.messages.length = 0;
+      this.chatService.onReceivePrivateMessage(this.roomId, message => this.messages.push(message));
+      this.chatService.getPartner(partnerId, partnerName => this.partnerName = partnerName);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.chatService.leaveRoom(this.roomId, this.partnerId);
   }
 
   sendMessage(messageText: string) {
     if (messageText) {
       const sentAt = moment();
-      const message = {body: messageText, day: sentAt.format('DD.MM.YY'), time: sentAt.format('HH:mm:ss'), partnerId: this.partnerId};
+      const message = {body: messageText, day: sentAt.format('DD.MM.YY'), time: sentAt.format('HH:mm:ss'), roomId: this.roomId};
       this.chatService.sendMessage(message);
     }
   }

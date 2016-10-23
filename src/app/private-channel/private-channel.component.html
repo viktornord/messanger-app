@@ -1,3 +1,4 @@
+<p class="info" *ngIf="partnerName">Private conversation with <strong>{{partnerName}}</strong></p>
 <div class="wrapper">
   <main>
     <div *ngFor="let message of messages" class="message-wrapper" [ngClass]="{'own-message': message.author === nickname}">

@@ -5,7 +5,7 @@ import {ChatService} from '../chat.service';
 @Injectable()
 export class AuthService {
   token: string;
-  userData: {userId: number, username: string};
+  private userData: {userId: number, username: string};
 
   constructor(private http: Http, private chatService: ChatService) {
     const savedToken = localStorage.getItem('messengerToken');

@@ -1,9 +1,14 @@
 :host {
   display: block;
-  height: calc(100% - 120px);
+  height: calc(100% - 130px);
+}
+.info {
+  height: 20px;
+  margin: 0;
+  background: #dfdee8;
 }
 .wrapper {
-  height: 85%;
+  height: calc(85% - 20px);
   display: flex;
 }
 main {

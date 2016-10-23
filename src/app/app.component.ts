@@ -23,4 +23,8 @@ export class AppComponent {
   isLoggedIn(): boolean {
     return Boolean(this.authService.getToken());
   }
+
+  getCurrentUserName() {
+    return this.authService.getUserData().username
+  }
 }
