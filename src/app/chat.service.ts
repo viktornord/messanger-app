@@ -1,3 +1,4 @@
+import {environment} from '../environments/environment';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as io from 'socket.io-client';
@@ -14,7 +15,7 @@ export class ChatService {
     if (this.socket) {
       return;
     }
-    this.socket = io('http://127.0.0.1:5000', {
+    this.socket = io('https://pacific-sea-17731.herokuapp.com' || environment.host, {
       query: userData
     });
     this.socket.on('invitation-to-private', ({partner, roomId}) => {

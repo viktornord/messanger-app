@@ -1,3 +1,4 @@
+import {environment} from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import {ChatService} from '../chat.service';
@@ -44,12 +45,12 @@ export class AuthService {
 
   login(userData) {
 
-    return this.http.post(`http://127.0.0.1:3000/auth/login`, userData);
+    return this.http.post(`${environment.host}/auth/login`, userData);
   }
 
   register(userData) {
 
-    return this.http.post(`http://127.0.0.1:3000/auth/register`, userData);
+    return this.http.post(`${environment.host}/auth/register`, userData);
   }
 
 }

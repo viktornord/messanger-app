@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  host: 'https://pacific-sea-17731.herokuapp.com'
 };
