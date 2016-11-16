@@ -10,7 +10,7 @@ const appRoutes: Routes = [
   {path: 'auth', component: AuthComponent},
   {path: 'chat', component: MainChannelComponent},
   {path: 'room/:roomId/:partnerId', component: PrivateChannelComponent},
-  {path: '**', component: DashboardComponent}
+  {path: '**', redirectTo: ''}
 ];
 
 export const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);
