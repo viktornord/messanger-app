@@ -15,7 +15,7 @@ export class ChatService {
     if (this.socket) {
       return;
     }
-    this.socket = io('https://pacific-sea-17731.herokuapp.com' || environment.host, {
+    this.socket = io(environment.host, {
       query: userData
     });
     this.socket.on('invitation-to-private', ({partner, roomId}) => {
@@ -31,6 +31,7 @@ export class ChatService {
       alert(`${partnerName} closed the room...`);
       this.router.navigateByUrl(`/chat`);
     });
+    this.socket.on('go-to-main', () => this.router.navigateByUrl(`/chat`));
   }
 
   onConnectClients(initConnectedUsersFunction) {
@@ -59,12 +60,13 @@ export class ChatService {
     return this;
   }
 
-  leaveRoom(roomId, partnerId) {
-    this.socket.emit('leave-room', {roomId, partnerId});
+  leaveRoom(roomId) {
+    this.socket && this.socket.emit('leave-room', {roomId});
   }
 
   disconnect() {
     this.socket.disconnect();
+    this.socket = null;
     return this;
   }
 
@@ -79,8 +81,8 @@ export class ChatService {
     return this;
   }
 
-  getPartner(partnerId, subscription) {
-    this.socket.emit('get-partner', partnerId);
+  getPartner(roomId, subscription) {
+    this.socket.emit('get-partner', roomId);
     this.socket.on('retrieve-partner', subscription);
   }
 

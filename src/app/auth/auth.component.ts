@@ -34,6 +34,13 @@ export class AuthComponent {
         this.authService.saveToken(token);
         this.authService.saveUserData({username, userId});
         this.router.navigate(['/chat']);
+      }, errorResponse => {
+        try {
+          const errMsg = errorResponse.json().errorMessage;
+          alert(errMsg);
+        } catch (err) {
+          alert('Something is wrong, please contact support');
+        }
       });
   }
 

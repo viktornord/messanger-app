@@ -23,7 +23,10 @@ export class MainChannelComponent {
         const user = _.find(this.users, {userId: userId});
         user ? user.online = true : this.users.push({name: username, userId: userId, online: true});
       })
-      .onUserDisconnected(userId => _.find(this.users, {userId: userId}).online = false);
+      .onUserDisconnected(userId => {
+        const user = _.find(this.users, {userId: userId});
+        user && (user.online = false);
+      });
   }
 
   sendMessage(messageText: string) {

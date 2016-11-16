@@ -20,17 +20,17 @@ export class PrivateChannelComponent implements OnDestroy {
   constructor(private chatService: ChatService, private authService: AuthService, activatedRoute: ActivatedRoute) {
     this.nickname = authService.getUserData().username;
     activatedRoute.params.subscribe(({roomId, partnerId}) => {
-      this.roomId && this.chatService.leaveRoom(this.roomId, this.partnerId);
+      this.roomId && this.chatService.leaveRoom(this.roomId);
       this.roomId = roomId;
       this.partnerId = partnerId;
       this.messages.length = 0;
       this.chatService.onReceivePrivateMessage(this.roomId, message => this.messages.push(message));
-      this.chatService.getPartner(partnerId, partnerName => this.partnerName = partnerName);
+      this.chatService.getPartner(roomId, partnerName => this.partnerName = partnerName);
     });
   }
 
   ngOnDestroy(): void {
-    this.chatService.leaveRoom(this.roomId, this.partnerId);
+    this.chatService.leaveRoom(this.roomId);
   }
 
   sendMessage(messageText: string) {
